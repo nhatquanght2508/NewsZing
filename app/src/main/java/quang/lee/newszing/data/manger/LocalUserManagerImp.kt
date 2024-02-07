@@ -20,7 +20,7 @@ class LocalUserManagerImp(private val context: Context) : LocalUserManager {
     }
 
     override fun readAppEntry(): Flow<Boolean> {
-        context.dataStore.data.map { preferences ->
+        return context.dataStore.data.map { preferences ->
             preferences[PreferencesKeys.APP_ENTRY] ?: false
         }
     }
