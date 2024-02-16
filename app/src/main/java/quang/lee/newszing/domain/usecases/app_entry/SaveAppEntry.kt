@@ -1,4 +1,4 @@
-package quang.lee.newszing.domain.usecases
+package quang.lee.newszing.domain.usecases.app_entry
 
 import quang.lee.newszing.domain.manager.LocalUserManager
 

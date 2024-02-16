@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import quang.lee.newszing.domain.usecases.AppEntryUseCases
+import quang.lee.newszing.domain.usecases.app_entry.AppEntryUseCases
 import javax.inject.Inject
 
 @HiltViewModel
