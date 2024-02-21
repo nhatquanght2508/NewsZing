@@ -15,6 +15,7 @@ import quang.lee.newszing.domain.usecases.app_entry.ReadAppEntry
 import quang.lee.newszing.domain.usecases.app_entry.SaveAppEntry
 import quang.lee.newszing.domain.usecases.news.GetNews
 import quang.lee.newszing.domain.usecases.news.NewsUseCases
+import quang.lee.newszing.domain.usecases.news.SearchNews
 import quang.lee.newszing.util.Constant.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -42,7 +43,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNewsApi() : NewsApi {
+    fun provideNewsApi(): NewsApi {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -54,13 +55,16 @@ object AppModule {
     @Singleton
     fun provideNewsRepository(
         newsApi: NewsApi
-    ) : NewsRepository = NewsRepositoryImp(newsApi)
+    ): NewsRepository = NewsRepositoryImp(newsApi)
 
     @Provides
     @Singleton
     fun provideNewsUseCases(
         newsRepository: NewsRepository
     ): NewsUseCases {
-        return NewsUseCases(getNews = GetNews(newsRepository))
+        return NewsUseCases(
+            getNews = GetNews(newsRepository),
+            searchNews = SearchNews(newsRepository)
+        )
     }
 }

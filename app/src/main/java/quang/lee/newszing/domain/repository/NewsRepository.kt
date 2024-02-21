@@ -5,5 +5,6 @@ import kotlinx.coroutines.flow.Flow
 import quang.lee.newszing.domain.model.Article
 
 interface NewsRepository {
-    fun getNews(sources : List<String>) : Flow<PagingData<Article>>
+    fun getNews(sources: List<String>): Flow<PagingData<Article>>
+    fun searchNews(searchQuery: String, sources: List<String>): Flow<PagingData<Article>>
 }
