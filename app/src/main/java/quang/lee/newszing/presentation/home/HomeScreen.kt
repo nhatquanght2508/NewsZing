@@ -53,7 +53,7 @@ fun HomeScreen(
             .statusBarsPadding()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_logo),
+            painter = painterResource(id = R.drawable.ic_splash_new),
             contentDescription = null,
             modifier = Modifier
                 .width(150.dp)
