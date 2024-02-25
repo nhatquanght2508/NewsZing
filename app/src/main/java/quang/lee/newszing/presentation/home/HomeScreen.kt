@@ -27,13 +27,13 @@ import quang.lee.newszing.domain.model.Article
 import quang.lee.newszing.presentation.Dimens.Padding24
 import quang.lee.newszing.presentation.common.ArticlesList
 import quang.lee.newszing.presentation.common.SearchBar
-import quang.lee.newszing.presentation.nvgraph.Route
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     articles: LazyPagingItems<Article>,
-    navigate: (String) -> Unit
+    navigateToSearch: () -> Unit,
+    navigateToDetails: () -> Unit
 ) {
     val titles by remember {
         derivedStateOf {
@@ -67,7 +67,7 @@ fun HomeScreen(
             onValueChange = {},
             onSearch = {},
             onClick = {
-                navigate(Route.SearchScreen.route)
+                navigateToSearch
             }
         )
         Spacer(modifier = Modifier.height(Padding24))
@@ -85,6 +85,8 @@ fun HomeScreen(
         ArticlesList(
             modifier = Modifier.padding(horizontal = Padding24),
             articles = articles,
-            onClick = {})
+            onClick = {
+                navigateToDetails
+            })
     }
 }
