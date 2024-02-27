@@ -1,10 +1,14 @@
 package quang.lee.newszing.di
 
 import android.app.Application
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import quang.lee.newszing.data.local.NewsDao
+import quang.lee.newszing.data.local.NewsDatabase
+import quang.lee.newszing.data.local.NewsTypeConvertor
 import quang.lee.newszing.data.manger.LocalUserManagerImp
 import quang.lee.newszing.data.remote.NewsApi
 import quang.lee.newszing.data.remote.repository.NewsRepositoryImp
@@ -67,4 +71,24 @@ object AppModule {
             searchNews = SearchNews(newsRepository)
         )
     }
+
+    @Provides
+    @Singleton
+    fun provideNewsDatabase(
+        application: Application
+    ) : NewsDatabase {
+        return Room.databaseBuilder(
+            context = application,
+            klass = NewsDatabase::class.java,
+            name = "news_db"
+        ).addTypeConverter(NewsTypeConvertor())
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideNewsDao(
+        newsDatabase: NewsDatabase
+    ) : NewsDao = newsDatabase.newsDao
 }
