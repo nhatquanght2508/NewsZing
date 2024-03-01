@@ -27,7 +27,7 @@ import quang.lee.newszing.ui.theme.NewsZingTheme
 fun DetailsTopBar(
     onBrowsingClick: () -> Unit,
     onShareClick: () -> Unit,
-    onBookmarkClick: () -> Unit,
+    onFavoriteClick: () -> Unit,
     onBackClick: () -> Unit
 ) {
     TopAppBar(
@@ -47,7 +47,7 @@ fun DetailsTopBar(
             }
         },
         actions = {
-            IconButton(onClick = { onBookmarkClick }) {
+            IconButton(onClick = { onFavoriteClick }) {
                 Icon(
                     imageVector = Icons.Default.ThumbUp,
                     contentDescription = null
@@ -77,7 +77,7 @@ fun DetailsTopBarPreview() {
         DetailsTopBar(
             onBrowsingClick = { /*TODO*/ },
             onShareClick = { /*TODO*/ },
-            onBookmarkClick = { /*TODO*/ }) {
+            onFavoriteClick = { /*TODO*/ }) {
 
         }
     }

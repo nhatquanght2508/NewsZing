@@ -59,7 +59,7 @@ fun DetailsScreen(
                     }
                 }
             },
-            onBookmarkClick = {
+            onFavoriteClick = {
                 event(DetailEvent.SaveArticle)
             },
             onBackClick = navigateUp
