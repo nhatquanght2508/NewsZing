@@ -33,7 +33,7 @@ import quang.lee.newszing.ui.theme.NewsZingTheme
 fun DetailsScreen(
     article: Article,
     event: (DetailEvent) -> Unit,
-    navigateUp: () -> Unit
+    navigateUp: () -> Unit,
 ) {
     val context = LocalContext.current
     Column(
@@ -60,7 +60,7 @@ fun DetailsScreen(
                 }
             },
             onFavoriteClick = {
-                event(DetailEvent.SaveArticle)
+                event(DetailEvent.UpsertDeleteArticle(article))
             },
             onBackClick = navigateUp
         )

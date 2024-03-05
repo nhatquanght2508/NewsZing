@@ -33,7 +33,7 @@ import quang.lee.newszing.presentation.common.SearchBar
 fun HomeScreen(
     articles: LazyPagingItems<Article>,
     navigateToSearch: () -> Unit,
-    navigateToDetails: () -> Unit
+    navigateToDetails: (Article) -> Unit
 ) {
     val titles by remember {
         derivedStateOf {
@@ -67,7 +67,7 @@ fun HomeScreen(
             onValueChange = {},
             onSearch = {},
             onClick = {
-                navigateToSearch
+                navigateToSearch()
             }
         )
         Spacer(modifier = Modifier.height(Padding24))
@@ -86,7 +86,7 @@ fun HomeScreen(
             modifier = Modifier.padding(horizontal = Padding24),
             articles = articles,
             onClick = {
-                navigateToDetails
+                navigateToDetails(it)
             })
     }
 }

@@ -37,6 +37,6 @@ fun FavoriteScreen(
 
         Spacer(modifier = Modifier.height(Padding24))
 
-        ArticlesList(articles = state.articles, onClick = navigateToDetail)
+        ArticlesList(articles = state.articles, onClick = { navigateToDetail(it) })
     }
 }

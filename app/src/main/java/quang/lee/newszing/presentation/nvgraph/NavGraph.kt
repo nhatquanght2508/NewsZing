@@ -8,6 +8,7 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import quang.lee.newszing.presentation.favorite.FavoriteScreen
 import quang.lee.newszing.presentation.favorite.FavoriteViewModel
+import quang.lee.newszing.presentation.navigator.NewsNavigator
 import quang.lee.newszing.presentation.onboarding.OnBoardingScreen
 import quang.lee.newszing.presentation.onboarding.OnBoardingViewModel
 
@@ -39,8 +40,7 @@ fun NavGraph(
             composable(
                 route = Route.NewsNavigatorScreen.route
             ) {
-                val viewModel : FavoriteViewModel = hiltViewModel()
-                FavoriteScreen(state = viewModel.state.value, navigateToDetail = {})
+                NewsNavigator()
             }
         }
     }

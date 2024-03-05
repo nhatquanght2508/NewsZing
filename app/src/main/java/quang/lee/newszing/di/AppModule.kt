@@ -18,15 +18,15 @@ import quang.lee.newszing.domain.usecases.app_entry.AppEntryUseCases
 import quang.lee.newszing.domain.usecases.app_entry.ReadAppEntry
 import quang.lee.newszing.domain.usecases.app_entry.SaveAppEntry
 import quang.lee.newszing.domain.usecases.news.DeleteArticle
-import quang.lee.newszing.domain.usecases.news.GetArticles
+import quang.lee.newszing.domain.usecases.news.SelectArticles
 import quang.lee.newszing.domain.usecases.news.GetNews
 import quang.lee.newszing.domain.usecases.news.NewsUseCases
 import quang.lee.newszing.domain.usecases.news.SearchNews
+import quang.lee.newszing.domain.usecases.news.SelectArticle
 import quang.lee.newszing.domain.usecases.news.UpsertArticle
 import quang.lee.newszing.util.Constant.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
@@ -61,21 +61,22 @@ object AppModule {
     @Provides
     @Singleton
     fun provideNewsRepository(
-        newsApi: NewsApi
-    ): NewsRepository = NewsRepositoryImp(newsApi)
+        newsApi: NewsApi,
+        newsDao: NewsDao
+    ): NewsRepository = NewsRepositoryImp(newsApi, newsDao)
 
     @Provides
     @Singleton
     fun provideNewsUseCases(
         newsRepository: NewsRepository,
-        newsDao: NewsDao
     ): NewsUseCases {
         return NewsUseCases(
             getNews = GetNews(newsRepository),
             searchNews = SearchNews(newsRepository),
-            upsertArticle = UpsertArticle(newsDao),
-            deleteArticle = DeleteArticle(newsDao),
-            getArticles = GetArticles(newsDao)
+            upsertArticle = UpsertArticle(newsRepository),
+            deleteArticle = DeleteArticle(newsRepository),
+            selectArticles = SelectArticles(newsRepository),
+            selectArticle = SelectArticle(newsRepository)
         )
     }
 
