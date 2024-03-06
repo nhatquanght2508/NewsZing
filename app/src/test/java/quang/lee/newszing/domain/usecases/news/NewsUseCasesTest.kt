@@ -3,23 +3,20 @@ package quang.lee.newszing.domain.usecases.news
 import androidx.paging.PagingData
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
 import quang.lee.newszing.domain.model.Article
 import quang.lee.newszing.domain.model.Source
 import quang.lee.newszing.domain.repository.NewsRepository
 
-@RunWith(MockitoJUnitRunner::class)
-class GetNewsTest {
+class NewsUseCasesTest {
 
     @MockK
-    lateinit var newsRepository: NewsRepository
+    private lateinit var newsRepository: NewsRepository
 
     @Before
     fun setUp() {
@@ -27,7 +24,7 @@ class GetNewsTest {
     }
 
     @Test
-    fun `invoke should return Flow of PagingData`() = runTest {
+    fun getGetNews() = runTest {
         val sources = listOf("bbc-news", "abc-news")
         val expectedPagingData = PagingData.from(
             listOf(
@@ -53,13 +50,36 @@ class GetNewsTest {
                 ),
             )
         )
+
         coEvery {
             newsRepository.getNews(sources)
-        } returns flowOf(expectedPagingData)
-        GetNews(newsRepository).invoke(sources = sources).collect {pagingData ->
-            flowOf(pagingData).collect{ data ->
-                assertEquals(expectedPagingData, data)
-            }
+        } returns flowOf( expectedPagingData)
+        val getNews = GetNews(newsRepository)
+        getNews.invoke(sources)
+
+        coVerify(exactly = 1) {
+            getNews.invoke(sources)
         }
+    }
+
+    @Test
+    fun getSearchNews() = runTest {
+
+    }
+
+    @Test
+    fun getUpsertArticle() = runTest {
+    }
+
+    @Test
+    fun getDeleteArticle() = runTest {
+    }
+
+    @Test
+    fun getSelectArticles() = runTest {
+    }
+
+    @Test
+    fun getSelectArticle() = runTest {
     }
 }

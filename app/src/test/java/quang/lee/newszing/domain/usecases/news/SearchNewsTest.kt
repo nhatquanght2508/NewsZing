@@ -6,20 +6,16 @@ import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
 import quang.lee.newszing.domain.model.Article
 import quang.lee.newszing.domain.model.Source
 import quang.lee.newszing.domain.repository.NewsRepository
 
-@RunWith(MockitoJUnitRunner::class)
-class GetNewsTest {
-
+class SearchNewsTest {
     @MockK
-    lateinit var newsRepository: NewsRepository
+    private lateinit var newsRepository: NewsRepository
 
     @Before
     fun setUp() {
@@ -27,7 +23,7 @@ class GetNewsTest {
     }
 
     @Test
-    fun `invoke should return Flow of PagingData`() = runTest {
+    fun `invoke should return a flow `() = runTest {
         val sources = listOf("bbc-news", "abc-news")
         val expectedPagingData = PagingData.from(
             listOf(
@@ -54,11 +50,11 @@ class GetNewsTest {
             )
         )
         coEvery {
-            newsRepository.getNews(sources)
+            newsRepository.searchNews("abc",sources)
         } returns flowOf(expectedPagingData)
-        GetNews(newsRepository).invoke(sources = sources).collect {pagingData ->
-            flowOf(pagingData).collect{ data ->
-                assertEquals(expectedPagingData, data)
+        SearchNews(newsRepository).invoke("abc", sources).collect { pagingData ->
+            flowOf(pagingData).collect {
+                assertEquals(expectedPagingData, it)
             }
         }
     }

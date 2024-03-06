@@ -47,19 +47,19 @@ fun DetailsTopBar(
             }
         },
         actions = {
-            IconButton(onClick = { onFavoriteClick }) {
+            IconButton(onClick = { onFavoriteClick() }) {
                 Icon(
                     imageVector = Icons.Default.ThumbUp,
                     contentDescription = null
                 )
             }
-            IconButton(onClick = { onShareClick }) {
+            IconButton(onClick = { onShareClick() }) {
                 Icon(
                     imageVector = Icons.Default.Share,
                     contentDescription = null
                 )
             }
-            IconButton(onClick = { onBrowsingClick }) {
+            IconButton(onClick = { onBrowsingClick() }) {
                 Icon(
                     painterResource(id = R.drawable.ic_explore),
                     contentDescription = null

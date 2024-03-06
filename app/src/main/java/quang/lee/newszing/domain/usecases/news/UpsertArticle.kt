@@ -1,6 +1,5 @@
 package quang.lee.newszing.domain.usecases.news
 
-import quang.lee.newszing.data.local.NewsDao
 import quang.lee.newszing.domain.model.Article
 import quang.lee.newszing.domain.repository.NewsRepository
 
