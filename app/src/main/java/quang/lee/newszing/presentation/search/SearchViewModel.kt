@@ -29,7 +29,7 @@ class SearchViewModel @Inject constructor(private val newsUseCases: NewsUseCases
     private fun searchNews() {
         val article = newsUseCases.searchNews(
             searchQuery = _state.value.searchQuery,
-            sources = listOf("bbc-news","abc-news","al-jazeera-english")
+            sources = listOf("bbc-news","abc-news")
         ).cachedIn(viewModelScope)
         _state.value = _state.value.copy(article = article)
     }
